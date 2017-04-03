@@ -1,3 +1,8 @@
+/*
+ * TO RUN THIS TEST, YOU MUST:
+ * - BE RUNNING selenium
+ * - BE RUNNING HTTPSTER ON 3333 SERVING index.html
+*/
 'use strict'
 
 var wj = require('webjerk')
@@ -5,10 +10,9 @@ var wj = require('webjerk')
 wj.run({
   plugins: [
     {
-      name: 'webjerk-snaps',
+      register: require('../'),
       config: {
         desiredCapabilities: [ // see webdriverio or selenium docs!
-          { browserName: 'chrome' },
           { browserName: 'firefox' }
         ],
         url: 'http://localhost:3333', // what page to extract snaps from

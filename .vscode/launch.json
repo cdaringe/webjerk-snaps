@@ -7,8 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Dummies Program",
-      "program": "${workspaceRoot}/dummies.js"
+      "name": "Test",
+      "program": "${workspaceRoot}/test/index.js"
     },
     {
       "type": "node",

@@ -1,17 +1,19 @@
 {
   "name": "webjerk-snaps",
   "description": "use CSS screenshot testing in webjerk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4",
     "pify": "^2.3.0",
-    "webdriverio": "^2.4.5",
-    "webdrivercss": "^1.1.10"
+    "q": "^1.5.0",
+    "webdrivercss": "^1.1.10",
+    "webdriverio": "^2.4.5"
   },
   "devDependencies": {
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "webjerk": "0.0.2"
   },
   "scripts": {
     "test": "node test/"

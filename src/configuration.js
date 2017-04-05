@@ -1,54 +1,34 @@
 /**
- * @class configuration
+ * @namespace configuration
+ * @property {array|object} desiredCapabilities set of selenium desiredCapabilities.  we expect an array, although the similar named property is an object. be concious of this difference!
+ * @property {string} testName test name.  used in image prefixing for image diffs
+ * @property {string} url url for selenium to browse to
+ * @property {function} [snapDefinitions] POJOs with `name` & `elem` keys.  these describe _what_ to snap & compare. See @{link https://github.com/webdriverio/webdrivercss#example}. If you don't know these in advanced, see `snapDefinitionsFromWindow`.
+ * @property {function} [snapDefinitionsFromWindow] code to run in the browser to collect CSS selectors, if desired. Side effects, like modifying DOM, are permitted.  For instance, a side effect is, if you want images of all <div>s, adding unique `id`s to those nodes. **Must return a set of snapDefinitions**.
+ * @property {object} [webdriverio] custom webdriverio configuration
+ * @example
+ * var configTemplate = {
+ *   desiredCapabilities: [
+ *     { browserName: 'chrome' },
+ *     { browserName: 'firefox' }
+ *   ],
+ *   snapDefinitions: [{ name: 'my-widget', elem: '#my_widget' }],
+ *   snapDefinitionsFromWindow: function queryDivSnapDefinitions (divs, message) {
+ *     // @NOTE this JS is run in the _browser_ context
+ *     // webdriverio JS serialziation requires semis. :/
+ *     var divs = document.getElementsByTagName('div');
+ *     var map = [];
+ *     var i = 0;
+ *     var tDiv;
+ *     while (divs[i]) {
+ *       tDiv = divs[i];
+ *       if (!tDiv.id) tDiv.id = '__dummy_div_' + i;
+ *       map.push({ elem: '#' + tDiv.id, name: tDiv.id });
+ *       ++i;
+ *     }
+ *     return map;
+ *   },
+ *   url: 'localhost:3333',
+ *   webdriverio: {}
+ * }
  */
-var configTemplate = { // eslint-disable-line
-  /**
-   * @property desiredCapabilities
-   * @type {array|object}
-   * @description set of selenium desiredCapabilities.  we expect an array,
-   * althoug
-   */
-  desiredCapabilities: [
-    { browserName: 'chrome' },
-    { browserName: 'firefox' }
-  ],
-
-  /**
-   * @property testName
-   * @type string
-   * @description test name.  used in image prefixing for image diffs
-   */
-  testName: null,
-
-  /**
-   * @property [snapDefinitions]
-   * @type function
-   * @description POJOs describing _what_ to snap & compare. See @{link https://github.com/webdriverio/webdrivercss#example}.
-   * Snap definitions are simply webdrivercss query objects.  If you don't know these
-   * in advanced, see `snapDefinitionsFromWindow`.
-   */
-  snapDefinitions: null,
-
-  /**
-   * @property [snapDefinitionsFromWindow]
-   * @type function
-   * @description code to run in the browser to collect CSS selectors, if desired.
-   * Side effects, like modifying DOM, is permitted.  For instance, if you want
-   * images of all <div>s, you can add unique `id`s to those nodes
-   */
-  snapDefinitionsFromWindow: null,
-
-  /**
-   * @property url
-   * @type string
-   * @description url for selenium to browse to
-   */
-  url: null,
-
-  /**
-   * @property [webdriverio]
-   * @type {object}
-   * @description custom webdriverio configuration
-   */
-  webdriverio: null
-}

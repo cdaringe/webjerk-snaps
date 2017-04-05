@@ -57,6 +57,12 @@ module.exports = function registerSnaps () {
         .catch(err => client.end().then(() => { throw err }))
       })
     },
+    /**
+     * webjerk main hook
+     * @param {*} pluginConfig
+     * @param {*} webjerkconfig
+     * @param {*} results
+     */
     main (pluginConfig, webjerkconfig, results) {
       var capabilities = pluginConfig.desiredCapabilities || [{ browserName: 'chrome' }]
       if (!Array.isArray(capabilities)) capabilities = [capabilities]
@@ -72,6 +78,12 @@ module.exports = function registerSnaps () {
         })
       }, Promise.resolve())
     },
+    /**
+     * webjerk post hook
+     * @param {*} pluginConfig
+     * @param {*} webjerkconfig
+     * @param {*} results
+     */
     post (pluginConfig, webjerkconfig, results) {
       var { snapRefRoot, snapRunDir } = results.main[this.name]
       if (!snapRunDir || !snapRefRoot) throw new Error('expected snapRunDir & snapRefRoot from main results')

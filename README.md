@@ -17,15 +17,17 @@ don't like the way this package works?  hack it!  all things `webjerk` are small
 
 ## usage
 
-see `src/index.js` for a JSDoc-style, documented configuration API.  or drop an issue.
+[API documentation lives here](https://cdaringe.github.io/webjerk-snaps/index.html).
 
-- to get image baselines, create a baseline config and run. see #example
-- to update baseline images, i.e. approve changes, set `UPDATE_BASELINE=true` and run it again!
+- to get image baselines, create a config and run. see the `#example` section
+- run it!
+  - all image **basenames** that are _not_ present in the reference set become part of the reference set.
+- subsequent runs compare against these images
 
 ## example
 
 ```js
-// example
+// test.js
 'use strict'
 
 var wj = require('webjerk')

@@ -60,12 +60,16 @@
 </ul>
 <p>this type of testing is somtimes also called CSS testing or screenshot testing.</p>
 <p>don't like the way this package works?  hack it!  all things <code>webjerk</code> are small and modular.  feel free to drop us an issue on GitHub with questions &amp; comments too!</p>
-<h2>usage</h2><p>see <code>src/configuration.js</code> for a JSDoc-style, documented configuration API.  or drop an issue.</p>
+<h2>usage</h2><p><a href="https://cdaringe.github.io/webjerk-snaps/index.html">API documentation lives here</a>.</p>
 <ul>
-<li>to get image baselines, create a baseline config and run. see #example</li>
-<li>to update baseline images, i.e. approve changes, set <code>UPDATE_BASELINE=true</code> and run it again!</li>
+<li>to get image baselines, create a config and run. see the <code>#example</code> section</li>
+<li>run it!<ul>
+<li>all image <strong>basenames</strong> that are <em>not</em> present in the reference set become part of the reference set.</li>
 </ul>
-<h2>example</h2><pre class="prettyprint source lang-js"><code>// example
+</li>
+<li>subsequent runs compare against these images</li>
+</ul>
+<h2>example</h2><pre class="prettyprint source lang-js"><code>// test.js
 'use strict'
 
 var wj = require('webjerk')

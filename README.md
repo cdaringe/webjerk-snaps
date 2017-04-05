@@ -11,6 +11,8 @@ this package:
 - creates a new reference image set _or_ compares the new set to a reference set
   - on comparison failure (optionally) [generates a static website highlighting the failed comparisons](https://github.com/cdaringe/webjerk-image-set-diff-reporter).  this is handy if you you want your CI to deploy the site somewhere for public viewing.
 
+this type of testing is somtimes also called CSS testing or screenshot testing.
+
 don't like the way this package works?  hack it!  all things `webjerk` are small and modular.  feel free to drop us an issue on GitHub with questions & comments too!
 
 ## usage

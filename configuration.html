@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>configuration - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-webjerk-snaps.html">webjerk-snaps</a><ul class='methods'><li data-type='method'><a href="module-webjerk-snaps.html#~capture">capture</a></li><li data-type='method'><a href="module-webjerk-snaps.html#~main">main</a></li><li data-type='method'><a href="module-webjerk-snaps.html#~post">post</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="configuration.html">configuration</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">configuration</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        configuration
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>desiredCapabilities</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+|
+
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>set of selenium desiredCapabilities.  we expect an array, although the similar named property is an object. be concious of this difference!</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>testName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>test name.  used in image prefixing for image diffs</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>url for selenium to browse to</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>snapDefinitions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>POJOs with <code>name</code> &amp; <code>elem</code> keys.  these describe <em>what</em> to snap &amp; compare. See @{link https://github.com/webdriverio/webdrivercss#example}. If you don't know these in advanced, see <code>snapDefinitionsFromWindow</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>snapDefinitionsFromWindow</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>code to run in the browser to collect CSS selectors, if desired. Side effects, like modifying DOM, are permitted.  For instance, a side effect is, if you want images of all <div>s, adding unique <code>id</code>s to those nodes. <strong>Must return a set of snapDefinitions</strong>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>webdriverio</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>custom webdriverio configuration</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="configuration.js.html">configuration.js</a>, <a href="configuration.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint"><code>var configTemplate = {
+  desiredCapabilities: [
+    { browserName: 'chrome' },
+    { browserName: 'firefox' }
+  ],
+  snapDefinitions: [{ name: 'my-widget', elem: '#my_widget' }],
+  snapDefinitionsFromWindow: function queryDivSnapDefinitions (divs, message) {
+    // @NOTE this JS is run in the _browser_ context
+    // webdriverio JS serialziation requires semis. :/
+    var divs = document.getElementsByTagName('div');
+    var map = [];
+    var i = 0;
+    var tDiv;
+    while (divs[i]) {
+      tDiv = divs[i];
+      if (!tDiv.id) tDiv.id = '__dummy_div_' + i;
+      map.push({ elem: '#' + tDiv.id, name: tDiv.id });
+      ++i;
+    }
+    return map;
+  },
+  url: 'localhost:3333',
+  webdriverio: {}
+}</code></pre>
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

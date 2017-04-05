@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>index.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-webjerk-snaps.html">webjerk-snaps</a><ul class='methods'><li data-type='method'><a href="module-webjerk-snaps.html#~capture">capture</a></li><li data-type='method'><a href="module-webjerk-snaps.html#~main">main</a></li><li data-type='method'><a href="module-webjerk-snaps.html#~post">post</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="configuration.html">configuration</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+
+var wd = require('webdriverio')
+var wdiosc = require('wdio-screenshot')
+var pify = require('pify')
+var isObject = require('lodash/isObject')
+var set = require('lodash/set')
+var mkdirp = pify(require('mkdirp'))
+var path = require('path')
+var Differ = require('webjerk-image-set-diff')
+
+/**
+ * @module webjerk-snaps
+ * @description website visual regression testing plugin.  on `main`,
+ * webjerk-snaps queues up browsers to be run serially. each browser is
+ * launched, screenshots captured. on `post`, the image directories are sent to
+ * `webjerk-image-set-diff` for executing the comparison algorithm.
+ */
+module.exports = function registerSnaps () {
+  return {
+    name: 'snaps',
+    /**
+     * launches a browser and captures screenshots
+     * @param {*} webdriverioConf
+     * @param {*} pluginConfig
+     * @param {*} webjerkconfig
+     * @returns {Promise}
+     */
+    capture (webdriverioConf, pluginConfig, webjerkconfig) {
+      var { testName, snapDefinitions, snapDefinitionsFromWindow, url } = pluginConfig
+      if (!testName) throw new Error('missing testName')
+      if (!snapDefinitions &amp;&amp; !snapDefinitionsFromWindow) throw new Error('snapDefinitions or snapDefinitionsFromWindow must be set')
+      var client = wd.remote(webdriverioConf)
+      wdiosc.init(client)
+      return client
+      .init()
+      .url(url)
+      .execute(snapDefinitionsFromWindow || function noop () {}, '&lt;msg>')
+      .then(function ({ value }) {
+        var browser = `${webdriverioConf.desiredCapabilities.browserName}-${webdriverioConf.desiredCapabilities.version || 'latest'}`
+        var snapDefs = snapDefinitionsFromWindow ? value : snapDefinitions
+        if (!snapDefs) throw new Error('no snapDefinitions were found')
+        var snapRoot = path.resolve(process.cwd(), 'snaps')
+        var snapRunRoot = path.resolve(snapRoot, 'runs')
+        var snapRefRoot = path.resolve(snapRoot, 'ref')
+        var snapRunDir = path.resolve(snapRunRoot, `run-${Date.now().toString()}`)
+        return Promise.resolve()
+        .then(() => Promise.all([mkdirp(snapRunDir), mkdirp(snapRefRoot)]))
+        .then(() => {
+          return snapDefs.reduce((client, sd) => {
+            var snapFilename = path.join(snapRunDir, `${browser}-${sd.name}.png`)
+            return client.saveElementScreenshot(snapFilename, sd.elem)
+          }, client)
+        })
+        .then(() => client.end())
+        .then(() => ({ snapRefRoot, snapRunDir }))
+        .catch(err => client.end().then(() => { throw err }))
+      })
+    },
+    /**
+     * webjerk main hook
+     * @param {*} pluginConfig
+     * @param {*} webjerkconfig
+     * @param {*} results
+     */
+    main (pluginConfig, webjerkconfig, results) {
+      var capabilities = pluginConfig.desiredCapabilities || [{ browserName: 'chrome' }]
+      if (!Array.isArray(capabilities)) capabilities = [capabilities]
+      // run each capability, i.e. run each requested browser
+      return capabilities.reduce((chain, capability) => {
+        return chain.then(() => {
+          var webdriverioConf = pluginConfig.webdriverio || {}
+          if (!isObject(capability)) throw new Error('desiredCapabilities must be an object')
+          set(webdriverioConf, 'desiredCapabilities', capability)
+          if (!webdriverioConf.desiredCapabilities.browserName) throw new Error('browserName missing')
+          console.log(`booting ${webdriverioConf.desiredCapabilities.browserName}`)
+          return this.capture(webdriverioConf, pluginConfig, webjerkconfig)
+        })
+      }, Promise.resolve())
+    },
+    /**
+     * webjerk post hook
+     * @param {*} pluginConfig
+     * @param {*} webjerkconfig
+     * @param {*} results
+     */
+    post (pluginConfig, webjerkconfig, results) {
+      var { snapRefRoot, snapRunDir } = results.main[this.name]
+      if (!snapRunDir || !snapRefRoot) throw new Error('expected snapRunDir &amp; snapRefRoot from main results')
+      return Differ.factory({ refDir: snapRefRoot, runDir: snapRunDir, report: pluginConfig.report || true }).run()
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

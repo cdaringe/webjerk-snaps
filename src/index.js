@@ -5,9 +5,12 @@ var wdiosc = require('wdio-screenshot')
 var pify = require('pify')
 var isObject = require('lodash/isObject')
 var set = require('lodash/set')
+var get = require('lodash/get')
 var mkdirp = pify(require('mkdirp'))
 var path = require('path')
 var Differ = require('webjerk-image-set-diff')
+
+var DEFAULT_WINDOW_EXEC =  function () { return {}; } // eslint-disable-line
 
 /**
  * @module webjerk-snaps
@@ -32,10 +35,11 @@ module.exports = function registerSnaps () {
       if (!snapDefinitions && !snapDefinitionsFromWindow) throw new Error('snapDefinitions or snapDefinitionsFromWindow must be set')
       var client = wd.remote(webdriverioConf)
       wdiosc.init(client)
+      console.log(`booting ${webdriverioConf.desiredCapabilities.browserName}`)
       return client
       .init()
       .url(url)
-      .execute(snapDefinitionsFromWindow || function noop () {}, '<msg>')
+      .execute(snapDefinitionsFromWindow || DEFAULT_WINDOW_EXEC, '<msg>')
       .then(function ({ value }) {
         var browser = `${webdriverioConf.desiredCapabilities.browserName}-${webdriverioConf.desiredCapabilities.version || 'latest'}`
         var snapDefs = snapDefinitionsFromWindow ? value : snapDefinitions
@@ -73,7 +77,6 @@ module.exports = function registerSnaps () {
           if (!isObject(capability)) throw new Error('desiredCapabilities must be an object')
           set(webdriverioConf, 'desiredCapabilities', capability)
           if (!webdriverioConf.desiredCapabilities.browserName) throw new Error('browserName missing')
-          console.log(`booting ${webdriverioConf.desiredCapabilities.browserName}`)
           return this.capture(webdriverioConf, pluginConfig, webjerkconfig)
         })
       }, Promise.resolve())
@@ -85,7 +88,7 @@ module.exports = function registerSnaps () {
      * @param {*} results
      */
     post (pluginConfig, webjerkconfig, results) {
-      var { snapRefRoot, snapRunDir } = results.main[this.name]
+      var { snapRefRoot, snapRunDir } = get(results || {}, `main[${this.name}]`)
       if (!snapRunDir || !snapRefRoot) throw new Error('expected snapRunDir & snapRefRoot from main results')
       return Differ.factory({ refDir: snapRefRoot, runDir: snapRunDir, report: pluginConfig.report || true }).run()
     }

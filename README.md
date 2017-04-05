@@ -2,11 +2,20 @@
 
 ![](https://img.shields.io/badge/standardjs-%E2%9C%93-brightgreen.svg)
 
-use CSS screenshot testing in `webjerk`.  this is a thin wrapper to execute [webdrivercss](https://github.com/webdriverio/webdrivercss/).
+website visual regression testing.
 
-see `src/index.js` for a JSDoc-style, documented configuration API.  or drop an issue.
+this package:
+
+- browses to a webpage via selenium
+- screenshots targeted CSS selectors, generating PNGs
+- creates a new reference image set _or_ compares the new set to a reference set
+  - on comparison failure (optionally) [generates a static website highlighting the failed comparisons](https://github.com/cdaringe/webjerk-image-set-diff-reporter).  this is handy if you you want your CI to deploy the site somewhere for public viewing.
+
+don't like the way this package works?  hack it!  all things `webjerk` are small and modular.  feel free to drop us an issue on GitHub with questions & comments too!
 
 ## usage
+
+see `src/index.js` for a JSDoc-style, documented configuration API.  or drop an issue.
 
 - to get image baselines, create a baseline config and run. see #example
 - to update baseline images, i.e. approve changes, set `UPDATE_BASELINE=true` and run it again!

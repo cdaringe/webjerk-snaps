@@ -1,19 +1,22 @@
 {
   "name": "webjerk-snaps",
   "description": "use CSS screenshot testing in webjerk",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
     "pify": "^2.3.0",
-    "q": "^1.5.0",
-    "webdrivercss": "^1.1.10",
-    "webdriverio": "^2.4.5"
+    "wdio-screenshot": "^0.5.2",
+    "webdriverio": "^4.6.2",
+    "webjerk-image-set-diff": "^0.0.5"
   },
   "devDependencies": {
+    "httpster": "^1.0.3",
     "tape": "^4.6.3",
-    "webjerk": "0.0.2"
+    "webjerk": "0.0.2",
+    "webjerk-process-wrangler": "^0.0.6"
   },
   "scripts": {
     "test": "node test/"

@@ -8,12 +8,17 @@
       "type": "node",
       "request": "launch",
       "name": "Test",
-      "program": "${workspaceRoot}/test/index.js"
+      "program": "${workspaceRoot}/test/index.js",
+      "cwd": "${workspaceRoot}",
+      "skipFiles": [
+
+      ]
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
+      "cwd": "${workspaceRoot}",
       "program": "${workspaceRoot}/src/index.js"
     },
     {

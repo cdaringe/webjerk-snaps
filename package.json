@@ -4,6 +4,7 @@
   "version": "0.0.9",
   "main": "src/index.js",
   "license": "MIT",
+  "author": "cdaringe",
   "dependencies": {
     "bluebird": "^3.5.0",
     "lodash": "^4.17.4",

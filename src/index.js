@@ -93,7 +93,7 @@ module.exports = function registerSnaps () {
      */
     post (pluginConfig, webjerkconfig, results) {
       var res = get(results, `main[${this.name}]`)
-      if (!res.length) return console.error('unable to find run & ref images')
+      if (!res || !res.length) return console.error('unable to find run & ref images')
       var { snapRefRoot, snapRunDir } = res[0]
       if (!snapRunDir || !snapRefRoot) throw new Error('expected snapRunDir & snapRefRoot from main results')
       return Differ.factory({ refDir: snapRefRoot, runDir: snapRunDir, report: pluginConfig.report || true }).run()

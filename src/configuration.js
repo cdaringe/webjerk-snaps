@@ -6,6 +6,7 @@
  * @property {function} [snapDefinitions] POJOs with `name` & `elem` keys.  these describe _what_ to snap & compare. See @{link https://github.com/webdriverio/webdrivercss#example}. If you don't know these in advanced, see `snapDefinitionsFromWindow`.
  * @property {function} [snapDefinitionsFromWindow] code to run in the browser to collect CSS selectors, if desired. Side effects, like modifying DOM, are permitted.  For instance, a side effect is, if you want images of all <div>s, adding unique `id`s to those nodes. **Must return a set of snapDefinitions**.
  * @property {object} [webdriverio] custom webdriverio configuration
+ * @property {number} [concurrency] number of concurrent desiredCapabilities to launch at once
  * @example
  * var configTemplate = {
  *   desiredCapabilities: [

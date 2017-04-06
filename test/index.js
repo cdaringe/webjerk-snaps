@@ -33,8 +33,10 @@ tape('drives the browser, takes screenshots, outputs report on fail', t => {
         register: require('../'),
         config: {
           desiredCapabilities: [ // see webdriverio or selenium docs!
-            { browserName: 'firefox' }
+            { browserName: 'firefox' },
+            { browserName: 'chrome' }
           ],
+          concurrency: 2,
           url: 'http://localhost:3333', // what page to extract snaps from
           testName: 'screenshot-all-divs',
           snapDefinitionsFromWindow: function queryDivSnapDefinitions (divs, message) {

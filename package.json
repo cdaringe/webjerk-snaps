@@ -1,16 +1,16 @@
 {
   "name": "webjerk-snaps",
   "description": "use CSS screenshot testing in webjerk",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "pify": "^2.3.0",
     "wdio-sauce-service": "^0.3.1",
     "wdio-screenshot": "^0.5.2",
-    "webdriverio": "^4.6.2",
+    "webdriverio": "4.2.16",
     "webjerk-image-set-diff": "^0.0.5"
   },
   "devDependencies": {

@@ -1,5 +1,7 @@
 # webjerk-snaps
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/cdaringe/webjerk-snaps.svg)](https://greenkeeper.io/)
+
 ![](https://img.shields.io/badge/standardjs-%E2%9C%93-brightgreen.svg)
 
 website visual regression testing.
